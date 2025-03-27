@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useCode } from "@/context/CodeContext";
 import Editor from "@monaco-editor/react";
 import { useTheme } from "next-themes";
 
 export default function CodeEditor() {
-  const [code, setCode] = useState("// Write your code here...");
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
+  const { code, setCode, input, setInput, output } = useCode();
   const { theme } = useTheme();
 
   // Determine Monaco Editor Theme
@@ -22,7 +20,7 @@ export default function CodeEditor() {
           height="100%"
           defaultLanguage="c"
           value={code}
-          theme={monacoTheme}
+          theme={monacoTheme} // Dynamically change theme
           onChange={(value) => setCode(value || "")}
           options={{
             fontSize: 14,
