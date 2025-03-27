@@ -4,10 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Play, HelpCircle, AlertTriangle, Github, Menu } from "lucide-react";
+import { Play, HelpCircle, AlertTriangle, Github, Menu, Loader2 } from "lucide-react";
 import DarkModeToggle from "./DarkModeToggle";
+import { useCode } from "@/context/CodeContext";
+import { useState } from "react";
 
 export default function Header() {
+  const { executeCode } = useCode();
+  const [loading, setLoading] = useState(false);
+
+  const handleExecute = async () => {
+    setLoading(true);
+    await executeCode();
+    setLoading(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4">
@@ -25,8 +36,21 @@ export default function Header() {
 
           {/* Center: Execute Button */}
           <div className="flex justify-center flex-1">
-            <Button variant="default" className="flex items-center gap-2 px-5">
-              <Play size={16} /> Execute
+            <Button
+              variant="default"
+              className="flex items-center gap-2 px-5"
+              onClick={handleExecute}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" /> Executing...
+                </>
+              ) : (
+                <>
+                  <Play size={16} /> Execute
+                </>
+              )}
             </Button>
           </div>
 
