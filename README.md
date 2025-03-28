@@ -125,4 +125,4 @@ If you find this project useful, consider [sponsor me](https://github.com/sponso
 ---
 
 🚀 **Built with ❤️ by [DevFreAkeD](https://github.com/DevFreAkeD)**  
-🔗 **Need help?** Feel free to open an [issue](https://github.com/DevFreAkeD/codevcompile-2.0/issues)!  
+🔗 **Need help?** Feel free to open an [issue](https://github.com/DevFreAkeD/CoDevCompile-2.0/issues)!  
