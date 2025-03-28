@@ -3,13 +3,20 @@
 import { useCode } from "@/context/CodeContext";
 import Editor from "@monaco-editor/react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function CodeEditor() {
   const { code, setCode, input, setInput, output, fileName  } = useCode();
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const [monacoTheme, setMonacoTheme] = useState("light");
 
-  // Determine Monaco Editor Theme
-  const monacoTheme = theme === "dark" || theme === "system" ? "vs-dark" : "light";
+  useEffect(() => {
+    const newTheme =
+      theme === "dark" || (theme === "system" && resolvedTheme === "dark")
+        ? "vs-dark"
+        : "light";
+    setMonacoTheme(newTheme);
+  }, [theme, resolvedTheme]);
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] w-full text-foreground">
