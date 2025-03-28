@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useCode } from "@/context/CodeContext";
 
 const languages = [
-  { name: "C", image: "/c.svg" },
-  { name: "C++", image: "/cpp.svg" },
+  { name: "C", image: "/c.svg", value: "c" },
+  { name: "C++", image: "/cpp.svg", value: "cpp" },
 ];
 
 export default function Sidebar() {
-  const [selected, setSelected] = useState("C");
+  const { selectedLanguage, setSelectedLanguage } = useCode();
 
   return (
     <aside className="w-14 md:w-16 lg:w-20 h-[calc(100vh-4rem)] bg-background/80 backdrop-blur-sm border-r border-border flex flex-col items-center p-4 transition-all">
@@ -17,10 +17,10 @@ export default function Sidebar() {
       <div className="flex flex-col items-center gap-6 mt-4">
         {languages.map((lang) => (
           <div
-            key={lang.name}
-            onClick={() => setSelected(lang.name)}
+            key={lang.value}
+            onClick={() => setSelectedLanguage(lang.value)}
             className={`cursor-pointer p-2.5 rounded-md transition ${
-              selected === lang.name ? "bg-primary/20" : "hover:bg-muted/20"
+              selectedLanguage === lang.value ? "bg-zinc-200 dark:bg-primary/20" : "hover:bg-muted/20"
             }`}
           >
             <Image
