@@ -10,6 +10,8 @@ interface CodeContextProps {
   input: string;
   setInput: (input: string) => void;
   output: string;
+  selectedLanguage: string;
+  setSelectedLanguage: (language: string) => void;
   executeCode: () => void;
 }
 
@@ -21,13 +23,14 @@ export function CodeProvider({ children }: { children: React.ReactNode }) {
   const [code, setCode] = useState("// Write your code here...");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("c"); // Default to C
 
   // Function to execute code
   const executeCode = async () => {
     try {
       const response = await axios.post("/api/compile", {
         code,
-        language: "c",
+        language: selectedLanguage.toLowerCase(),
         input,
       });
 
@@ -39,7 +42,7 @@ export function CodeProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <CodeContext.Provider value={{ code, setCode, input, setInput, output, executeCode }}>
+    <CodeContext.Provider value={{ code, setCode, input, setInput, output, selectedLanguage, setSelectedLanguage, executeCode }}>
       {children}
     </CodeContext.Provider>
   );
