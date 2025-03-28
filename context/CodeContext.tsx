@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { HELLO_WORLD_CODES } from "@/lib/constants";
 
 // Define types
 interface CodeContextProps {
@@ -10,9 +11,12 @@ interface CodeContextProps {
   input: string;
   setInput: (input: string) => void;
   output: string;
+  setOutput: (output: string) => void;
   selectedLanguage: string;
   setSelectedLanguage: (language: string) => void;
   executeCode: () => void;
+  loading: boolean;
+  fileName: string;
 }
 
 // Create context
@@ -20,13 +24,18 @@ const CodeContext = createContext<CodeContextProps | undefined>(undefined);
 
 // Provider component
 export function CodeProvider({ children }: { children: React.ReactNode }) {
-  const [code, setCode] = useState("// Write your code here...");
+  const [selectedLanguage, setSelectedLanguage] = useState("c"); // Default to C
+  const [code, setCode] = useState(HELLO_WORLD_CODES["c"].code); // Fix: Only use code
+  const [fileName, setFileName] = useState(HELLO_WORLD_CODES["c"].title); // Fix: Initialize properly
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState("c"); // Default to C
+  const [loading, setLoading] = useState(false);
 
   // Function to execute code
   const executeCode = async () => {
+    setLoading(true);
+    setOutput("Executing...");
+
     try {
       const response = await axios.post("/api/compile", {
         code,
@@ -34,15 +43,24 @@ export function CodeProvider({ children }: { children: React.ReactNode }) {
         input,
       });
 
-      setOutput(response.data.stdout || response.data.stderr);
+      setOutput(response.data.stdout || response.data.stderr || "No output");
     } catch (error) {
       console.error("Execution failed", error);
       setOutput("Error executing code");
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Update code & fileName when language changes
+  const handleLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+    setCode(HELLO_WORLD_CODES[language]?.code || "// Write your code here...");
+    setFileName(HELLO_WORLD_CODES[language]?.title || "main.txt"); // Update file name
+  };
+
   return (
-    <CodeContext.Provider value={{ code, setCode, input, setInput, output, selectedLanguage, setSelectedLanguage, executeCode }}>
+    <CodeContext.Provider value={{ code, setCode, input, setInput, output, setOutput, selectedLanguage, setSelectedLanguage: handleLanguageChange, executeCode, loading, fileName }} >
       {children}
     </CodeContext.Provider>
   );
