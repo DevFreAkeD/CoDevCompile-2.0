@@ -5,7 +5,7 @@ import Editor from "@monaco-editor/react";
 import { useTheme } from "next-themes";
 
 export default function CodeEditor() {
-  const { code, setCode, input, setInput, output, selectedLanguage  } = useCode();
+  const { code, setCode, input, setInput, output, fileName  } = useCode();
   const { theme } = useTheme();
 
   // Determine Monaco Editor Theme
@@ -15,10 +15,10 @@ export default function CodeEditor() {
     <div className="flex flex-col h-[calc(100vh-4rem)] w-full text-foreground">
       {/* Code Editor */}
       <div className="flex-1 border border-border overflow-hidden">
-        <h2 className="text-sm py-1 px-2 bg-zinc-100 dark:bg-zinc-900">Code</h2>
+        <h2 className="text-sm py-1 px-2 bg-zinc-100 dark:bg-zinc-900">{fileName}</h2>
         <Editor
           height="100%"
-          defaultLanguage={selectedLanguage}
+          defaultLanguage="c"
           value={code}
           theme={monacoTheme} // Dynamically change theme
           onChange={(value) => setCode(value || "")}
