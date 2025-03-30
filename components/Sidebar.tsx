@@ -6,6 +6,8 @@ import { useCode } from "@/context/CodeContext";
 const languages = [
   { name: "C", image: "/c.svg", value: "c" },
   { name: "C++", image: "/cpp.svg", value: "cpp" },
+  { name: "Python", image: "/python.svg", value: "python" },
+  { name: "Java", image: "/java.svg", value: "java" },
 ];
 
 export default function Sidebar() {
