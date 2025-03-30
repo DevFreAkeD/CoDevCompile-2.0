@@ -10,6 +10,8 @@ export async function POST(req: Request) {
     const languageMap: Record<string, { language: string; version: string }> = {
       c: { language: "c", version: "10.2.0" },
       cpp: { language: "c++", version: "10.2.0" },
+      python: { language: "python", version: "3.10.0" },
+      java: { language: "java", version: "15.0.2" },
     };
 
     if (!languageMap[language]) {
