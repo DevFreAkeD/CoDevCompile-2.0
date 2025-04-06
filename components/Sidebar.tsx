@@ -8,6 +8,8 @@ const languages = [
   { name: "C++", image: "/cpp.svg", value: "cpp" },
   { name: "Python", image: "/python.svg", value: "python" },
   { name: "Java", image: "/java.svg", value: "java" },
+  { name: "C#", image: "csharp.svg", value: "csharp" },
+  { name: "JavaScript", image: "js.svg", value: "javascript" },
 ];
 
 export default function Sidebar() {
