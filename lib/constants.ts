@@ -32,4 +32,18 @@ public class Main {
     }
 }`
     },
+    csharp: {
+        title: "Program.cs",
+        code: `using System;
+    
+class Program {
+    static void Main() {
+        Console.WriteLine("Hello, World!");
+    }
+}`
+    },
+    javascript: {
+        title: "main.js",
+        code: `console.log("Hello, World!");`
+    }    
 };
