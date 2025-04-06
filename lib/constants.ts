@@ -45,5 +45,16 @@ class Program {
     javascript: {
         title: "main.js",
         code: `console.log("Hello, World!");`
-    }    
+    },
+    typescript: {
+        title: "main.ts",
+        code: `const message: string = "Hello, World!";
+console.log(message);`
+    },
+    php: {
+        title: "main.php",
+        code: `<?php
+    echo "Hello, World!";
+?>`
+    },
 };
