@@ -24,10 +24,10 @@ const CodeContext = createContext<CodeContextProps | undefined>(undefined);
 
 // Provider component
 export function CodeProvider({ children }: { children: React.ReactNode }) {
-  const [selectedLanguage, setSelectedLanguage] = useState("c"); // Default to C
-  const [code, setCode] = useState(HELLO_WORLD_CODES["c"].code); // Fix: Only use code
-  const [fileName, setFileName] = useState(HELLO_WORLD_CODES["c"].title); // Fix: Initialize properly
-  const [input, setInput] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("cpp"); // Default to C
+  const [code, setCode] = useState(HELLO_WORLD_CODES["cpp"].code); // Fix: Only use code
+  const [fileName, setFileName] = useState(HELLO_WORLD_CODES["cpp"].title); // Fix: Initialize properly
+  const [input, setInput] = useState(HELLO_WORLD_CODES["cpp"].input);
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -57,6 +57,7 @@ export function CodeProvider({ children }: { children: React.ReactNode }) {
     setSelectedLanguage(language);
     setCode(HELLO_WORLD_CODES[language]?.code || "// Write your code here...");
     setFileName(HELLO_WORLD_CODES[language]?.title || "main.txt"); // Update file name
+    setInput(HELLO_WORLD_CODES[language]?.input || "");
   };
 
   return (
